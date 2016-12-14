@@ -8,6 +8,27 @@
 </head>
 <body>
 	<v:menu />
-	<h1>Werknemers</h1>
+	<table>
+		<thead>
+			<tr>
+				<th>Voornaam</th>
+				<th>Familienaam</th>
+				<th>Chef</th>
+				<th>Werknemers</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach items='${werknemers}' var='werknemer'>
+				<tr>
+					<td>${werknemer.voornaam}</td>
+					<td>${werknemer.familienaam}</td>
+					<td>${werknemer.chef.voornaam}</td>
+					<c:forEach items='${werknemer.chef.werknemers}' var='werknemer'>
+						<td>${werknemer.voornaam}</td>
+					</c:forEach>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
 </body>
 </html>

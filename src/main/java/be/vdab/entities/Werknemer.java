@@ -28,8 +28,8 @@ public class Werknemer implements Serializable {
 	private int versie;
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "chefid")
-	private Werknemer werknemer;
-	@OneToMany(mappedBy = "werknemer")
+	private Werknemer chef;
+	@OneToMany(mappedBy = "chef")
 	private Set<Werknemer> werknemers;
 
 	public long getId() {
@@ -56,8 +56,8 @@ public class Werknemer implements Serializable {
 		return versie;
 	}
 
-	public Werknemer getWerknemer() {
-		return werknemer;
+	public Werknemer getChef() {
+		return chef;
 	}
 
 	public Set<Werknemer> getWerknemers() {
