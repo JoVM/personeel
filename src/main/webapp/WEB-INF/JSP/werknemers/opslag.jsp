@@ -14,7 +14,7 @@
 	<h3>
 		<fmt:formatNumber value='${salaris}' />
 	</h3>
-	<c:url value='/werknemer/opslag' var='url' />
+	<c:url value='/werknemer/opslag/${id}/${salaris}' var='url' />
 	<form:form action='${url}' commandName='opslagWerknemer'>
 		<form:label path='bedrag'>Bedrag<form:errors
 				path='bedrag' />

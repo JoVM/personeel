@@ -24,12 +24,12 @@ public class WerknemerController {
 	private static final String OPSLAG_WERKNEMER_VIEW = "werknemers/opslag";
 	private final static String REDIRECT_NA_OPSLAG = "redirect:/";
 	private final static String REDIRECT_NA_OPSLAG_EXCEPTION = "redirect:/werknemer/{id}?optimisticlockingexception=true";
-	private final WerknemerIdSalaris werknemerIdSalaris;
+	// private final WerknemerIdSalaris werknemerIdSalaris;
 	private final WerknemerService werknemerService;
 
 	WerknemerController(WerknemerService werknemerService, WerknemerIdSalaris werknemerIdSalaris) {
 		this.werknemerService = werknemerService;
-		this.werknemerIdSalaris = werknemerIdSalaris;
+		// this.werknemerIdSalaris = werknemerIdSalaris;
 	}
 
 	@GetMapping
@@ -46,19 +46,20 @@ public class WerknemerController {
 
 	@GetMapping("opslag/{id}/{salaris}")
 	ModelAndView updateWerknemerSalaris(@PathVariable long id, @PathVariable BigDecimal salaris) {
-		werknemerIdSalaris.setId(id);
-		werknemerIdSalaris.setSalaris(salaris);
+		// werknemerIdSalaris.setId(id);
+		// werknemerIdSalaris.setSalaris(salaris);
 		ModelAndView modelAndView = new ModelAndView(OPSLAG_WERKNEMER_VIEW);
+		modelAndView.addObject(id);
 		modelAndView.addObject(salaris);
 		modelAndView.addObject(new OpslagWerknemer());
 		return modelAndView;
 	}
 
-	@PostMapping("opslag")
-	ModelAndView opslag(@Valid OpslagWerknemer opslagWerknemer, BindingResult bindingResult,
-			RedirectAttributes redirectAttributes) {
-		long id = werknemerIdSalaris.getId();
-		BigDecimal salaris = werknemerIdSalaris.getSalaris();
+	@PostMapping("opslag/{id}/{salaris}")
+	ModelAndView opslag(@Valid OpslagWerknemer opslagWerknemer, @PathVariable long id, @PathVariable BigDecimal salaris,
+			BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+		// long id = werknemerIdSalaris.getId();
+		// BigDecimal salaris = werknemerIdSalaris.getSalaris();
 		ModelAndView modelAndViewFout = new ModelAndView(OPSLAG_WERKNEMER_VIEW);
 		modelAndViewFout.addObject("salaris", salaris);
 		if (bindingResult.hasErrors()) {
