@@ -1,8 +1,7 @@
 package be.vdab.services;
 
-import java.util.List;
-
-import org.springframework.data.domain.Sort;
+import java.math.BigDecimal;
+import java.util.Optional;
 
 import be.vdab.entities.Werknemer;
 import be.vdab.repositories.WerknemerRepository;
@@ -17,8 +16,29 @@ public class DefaultWerknemerService implements WerknemerService {
 	}
 
 	@Override
-	public List<Werknemer> findAll() {
-		return werknemerRepository.findAll(new Sort("familienaam", "voornaam"));
+	public Werknemer findByChef(Integer id) {
+		return werknemerRepository.findByChef(id);
+	}
+
+	@Override
+	public Optional<Werknemer> findOne(long id) {
+		return werknemerRepository.findOne(id);
+	}
+
+	@ModifyingTransactionalServiceMethod
+	@Override
+	public void save(Werknemer werknemer) {
+		werknemerRepository.save(werknemer);
+
+	}
+
+	@ModifyingTransactionalServiceMethod
+	@Override
+	public void geefOpslag(long id, BigDecimal bedrag) {
+		Werknemer werknemerOpslag = findOne(id).get();
+		werknemerOpslag.geefOpslag(bedrag);
+		save(werknemerOpslag);
+
 	}
 
 }
